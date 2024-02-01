@@ -1,0 +1,204 @@
+<script>
+	/* On Mouse Over Change Images */
+		jQuery('#project_type_list .elementor-widget-icon-list').mouseover(function(){		
+	
+		var pro_type = jQuery(this).attr('id')
+	
+		var image_src = 'https://www.butlersigns.uk/wp-content/uploads/2022/06/Yoga-House-Wooden-Shop-Front-Signage-with-gold-Leaf-lettering-WIP-8-scaled.jpg';
+			switch (pro_type) {
+				case 'corporate_type':
+					image_src = 'https://www.butlersigns.uk/wp-content/uploads/2023/02/Corporate-Signage-APEX-External-Flat-Cut-Letters-00043Edit.png';
+					break;
+				case 'education_type':
+					image_src = 'https://www.butlersigns.uk/wp-content/uploads/2023/02/Newbury-College-Renewbales-Centre-External-Signage-4Edit.png'; 
+					break;
+				case 'property_type':
+					image_src = 'https://www.butlersigns.uk/wp-content/uploads/2022/12/Savills-1-scaled.jpg'; 
+					break;
+				case 'retail_type':
+					image_src = 'https://www.butlersigns.uk/wp-content/uploads/2021/04/Skin-HQ-Leeds-Cut-Acrylic-Letters-October-2021-4Edit.png';
+					break;
+	
+			}
+			
+			jQuery('#project_type_image').css("background-image", "url(" + image_src + ")");
+		}); 
+		
+	/* On Mouse Out Change Images */	
+			jQuery('#project_type_list').mouseleave(function(){
+				var image_src = 'https://www.butlersigns.uk/wp-content/uploads/2022/06/Yoga-House-Wooden-Shop-Front-Signage-with-gold-Leaf-lettering-WIP-8-scaled.jpg';
+				jQuery('#project_type_image').css("background-image", "url(" + image_src + ")");
+			});
+		
+		
+		
+		
+	document.addEventListener('DOMContentLoaded', function() {
+		let observedElements = document.querySelectorAll('.elementor-section-wrap > *, .elementor > *:not(.elementor-section-wrap, #navsection)');
+		const options = {
+		threshold: 0,
+		rootMargin: '-6% 0px -94%',
+		}
+		
+		const inViewCallback = entries => {
+			entries.forEach((entry, i, arr) => {
+				if (entry.isIntersecting && entry.target.classList.contains('alternate-theme-switch')) {
+					document.body.classList.add('alternate-theme');
+				} else if (entry.isIntersecting) {
+					document.body.classList.remove('alternate-theme');
+					if (jQuery('#section-1').length > 0 ) {
+						isScrolledIntoView( '#section-1' );
+					}
+				}
+				if (entry.isIntersecting && entry.target.classList.contains('alternate-white-logo')) {	
+					document.body.classList.add('alternate-white-logo-theme');
+				}else{
+					document.body.classList.remove('alternate-white-logo-theme');
+				}
+			});
+		}
+		
+		let observer = new IntersectionObserver(inViewCallback, options);
+		observedElements.forEach(element => {
+			observer.observe(element);
+		});
+	});
+	
+		
+	jQuery(window).scroll(function() {
+		if (jQuery('#section-1').length > 0 ) {
+			var section_height = jQuery('#section-1').height() - 5;
+			var scroll = jQuery(window).scrollTop();
+			isScrolledIntoView( '#section-1' );
+		}
+	});
+
+
+	jQuery("ul#menu-1-b437f63 li").mouseover(function(){
+		jQuery("ul#menu-1-b437f63 li:first-child").removeClass("home_heading_hover");
+	});
+	jQuery("ul#menu-1-b437f63 li").mouseout(function(){
+		jQuery("ul#menu-1-b437f63 li:first-child").addClass("home_heading_hover");
+	});
+
+
+	jQuery(".below_main_heading li").mouseover(function(){
+		jQuery(".first_heading_white").removeClass("home_heading_hover_second");
+	});
+	jQuery(".below_main_heading li").mouseout(function(){
+		jQuery(".first_heading_white ").addClass("home_heading_hover_second ");
+	});
+		
+	
+	/* Scrolling Effect JS Start */
+	//--- DEFINE a reusable animation function: ---//
+	function scrollThere(targetElement, speed) {
+		var check_aternate_theme = jQuery(targetElement).hasClass("alternate-theme-switch");
+		if (check_aternate_theme) {
+			jQuery('body').addClass('alternate-theme');
+		} else {
+			jQuery('body').removeClass('alternate-theme');
+		}
+		// initiate an animation to a certain page element:
+		jQuery('html, body').stop().animate(
+		{
+			scrollTop: targetElement.offset().top 
+		}, // move window so target element is at top of window
+		speed, // speed in milliseconds
+		'linear' // easing
+		); // end animate
+	} // end scrollThere function definition
+	
+	/* Scrolling Effect JS End */
+	var userScroll = jQuery(document).scrollTop();
+	  jQuery(window).scroll(function() {
+		var newScroll = jQuery(document).scrollTop();
+		if (jQuery(".page-id-5502")[0]){
+		  if(userScroll - newScroll > 350 || newScroll - userScroll > 20){
+			if( jQuery(".page-id-5502 .alternate-theme-only").css("display") == "none" ){
+			  jQuery(".default-theme-only").show();
+			}
+			else{
+			  jQuery(".default-theme-only").hide();
+			}
+		  }
+	   }
+	});
+	jQuery('.arrow_down_key a').click(function(){
+		jQuery('html, body').animate({
+			scrollTop: jQuery( jQuery(this).attr('href') ).offset().top
+		}, 1500);
+		return false;
+	});
+	
+	jQuery.fn.isInViewport = function() {
+		var elementClass = jQuery(this).hasClass("alternate-white-logo");
+		var elementTop = jQuery(this).offset().top;
+		var elementBottom = elementTop + jQuery(this).outerHeight();
+		var viewportTop = jQuery(window).scrollTop();
+		var viewportBottom = viewportTop + jQuery(window).height();
+		var view_top_check = viewportTop + 25;
+		// console.log(viewportTop); console.log(elementTop);
+		var alt_section_check = elementBottom > viewportTop && elementTop < viewportBottom;
+		if ( alt_section_check ) {
+			if ( elementTop <= view_top_check ) {
+				jQuery('body').removeClass('white-bg-theme');
+				if(elementClass){
+					jQuery('body').addClass('alternate-white-logo-theme');
+				}
+				jQuery('body').addClass('green-nav-theme');
+			} else {
+				jQuery('body').addClass('white-bg-theme');
+				jQuery('body').removeClass('green-nav-theme');
+				if(elementClass){
+					jQuery('body').removeClass('alternate-white-logo-theme');
+				}
+			}
+		} else {
+			jQuery('body').addClass('white-bg-theme');
+			jQuery('body').removeClass('green-nav-theme');
+			if(elementClass){
+				jQuery('body').removeClass('alternate-white-logo-theme');
+			}
+		}
+		return alt_section_check;
+	};
+	
+	jQuery(window).on('resize scroll', function() {
+		if (jQuery('.alternate-logo-menu').length){
+			if (jQuery('.alternate-logo-menu').isInViewport()) {
+				 // console.log('p');		
+			} else {
+
+			}
+		}
+		if (jQuery('.alternate-white-logo').length){
+			if (jQuery('.alternate-white-logo').isInViewport()) {
+				 // console.log('p');		
+			} else {
+
+			}
+		}
+	});
+	
+	function isScrolledIntoView(elem)
+	{
+		var docViewTop = jQuery(window).scrollTop();
+		var docViewBottom = docViewTop + jQuery(window).height();
+		var elemTop = jQuery(elem).offset().top;
+		var elemBottom = elemTop + jQuery(elem).height();
+		var elemheight = elemBottom - elemTop;
+		var first_section = (elemBottom <= docViewBottom) && (elemheight <= docViewTop);
+		if ( first_section ) {
+			jQuery("body").removeClass("hide_site_logo");
+		} else {
+			jQuery("body").addClass("alternate-theme");
+			if (jQuery("body.home").length) {
+				jQuery("body").addClass("hide_site_logo");
+			}
+			// jQuery("#get-in-touch-black").hide();
+		}
+		return first_section;
+	}
+		
+	</script>
